@@ -3,53 +3,45 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
-#include <sys/stat.h>
-#include <sys/types.h>
 #include <sys/wait.h>
-#include <fcntl.h>
-#include <errno.h>
+#include <stdarg.h>
 #include <signal.h>
 
-extern char **environ;
-extern int errno;
-
 /**
-* struct selectfunction - a struct array of functions
-* @command: a pointer to the caharacter of the command string
-* @funcptr: a pointer to a function
-*/
-typedef struct selectfunction
-{
-char *command;
-int (*funcptr)(char **line);
-} selecte;
+ * struct builtins - builtin command for shell
+ * @cmd: cmd
+ * @p_f: pointer to builtin func
+ *
+ *
+ *Description: struct for builtin func and command
+ */
 
-void sigintHandler(int sig_num __attribute__((unused)));
-void printprompt(int i);
-int exitor(char *line[]);
-int cater(char *line[]);
-int getstr(char *str);
-int shellprocessor(char **line, char **argv);
-char **strbrk(char *line, char c);
-int _getline(char **line, size_t *len);
-void farewell(void);
-void description(void);
-void printstar(void);
-void printstr(char *s);
-int strleng(char *s);
-void strcopy(char *src, char *dest);
-int strcomp(char *str, char *equ);
-void strmix(char *src, char *dest);
-int lister(char **line);
-int (*getfunc(char *str))(char **line);
-int echorr(char *line[]);
-int builtincom(char **line);
-int changedire(char **line);
-int pwder(char *line[]);
-int envir(char *line[]);
-int maker(char *line[]);
-char _getchar(void);
-char *stringer(char *line, int i, char *str, char c);
+typedef struct builtins
+{
+	char *cmd;
+	int (*p_f)(char **as, char **e);
+} _built;
+
+char **str_tow(char *str);
+void cpString(int e, char *s, char **wb);
+void GetWord(char **w, char *str);
+int WordCount(char *str);
+int _strlen(char *s);
+int _strcmp(char *s1, char *s2);
+char *_memcpy(char *dest, char *src, unsigned int n);
+char *_getenv(char *name, char **e);
+char *_strcat(char *s1, char *s2);
+int print_env(char **as, char **e);
+void _path(char **ch, char **e);
+void free_a(char **a);
+void free_as(int stat, const unsigned int n, ...);
+void sig_hand(int sig_n);
+int _atoi(char *ch);
+int exit_s(char **as, char **e);
+int built_check(char **as, char **e);
+int prompt(char **p);
 
 #endif
+
